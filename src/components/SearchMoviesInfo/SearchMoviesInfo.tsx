@@ -1,41 +1,38 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
-  View,
   Text,
   SafeAreaView,
   Image,
-  TouchableOpacity,
   Linking,
+  TouchableOpacity,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store';
 import {IMG_URL, YOUTUBE} from '../../servises/const';
-import {useNavigation} from '@react-navigation/native';
 import {fetchTrailer} from '../../api/MoviesApi';
+import {useNavigation} from '@react-navigation/native';
 
-const MoviesInfo = ({route}: any) => {
+const SearchMoviesInfo = ({route}: any) => {
   const [info, setInfo] = useState(undefined);
 
-  const moviesInfo = useSelector(
-    (state: RootState): any => state.moviesList.movies[route.params.index],
+  const searchMoviesInfo = useSelector(
+    (state: RootState): any => state.searchList.search[route.params.index],
   );
-
-
 
   useEffect(() => {
     const loadTrailer = async () => {
       try {
-        const {data} = await fetchTrailer(moviesInfo.id);
+        const {data} = await fetchTrailer(searchMoviesInfo.id);
         setInfo(data.results);
       } catch (e) {
         console.log(e, 'error');
       }
     };
 
-    if (!info && moviesInfo.id) {
+    if (!info && searchMoviesInfo.id) {
       loadTrailer();
     }
-  }, [moviesInfo, info]);
+  }, [searchMoviesInfo, info]);
 
   const {navigate}: any = useNavigation();
 
@@ -43,7 +40,6 @@ const MoviesInfo = ({route}: any) => {
     if (!info) {
       return [];
     }
-
     return info.map(item => {
       return YOUTUBE + item.key;
     });
@@ -52,7 +48,6 @@ const MoviesInfo = ({route}: any) => {
   const item = supportedURL[Math.floor(Math.random() * supportedURL.length)];
 
   const openVideo = useCallback(async () => {
-
     const supported = await Linking.canOpenURL(item);
     if (supported) {
       await Linking.openURL(item);
@@ -62,7 +57,7 @@ const MoviesInfo = ({route}: any) => {
   }, [item]);
 
   const goBack = () => {
-    navigate('Main');
+    navigate('SearchList');
   };
 
   return (
@@ -70,23 +65,21 @@ const MoviesInfo = ({route}: any) => {
       <TouchableOpacity onPress={goBack}>
         <Text>Go Back</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={openVideo}>
+        <Text>Watch the trailer</Text>
+      </TouchableOpacity>
       <Image
-        style={{ width: 400, height: 400}}
-        source={{uri: `${IMG_URL}${moviesInfo.backdrop_path}`}}
+        style={{width: 400, height: 400}}
+        source={{uri: `${IMG_URL}${searchMoviesInfo.backdrop_path}`}}
       />
-      <View style={{flex: 1}}>
-        <TouchableOpacity onPress={openVideo}>
-          <Text>Watch the trailer</Text>
-        </TouchableOpacity>
-        <Text style={{fontFamily: 'SourceSansPro-Bold'}}>
-          {moviesInfo.original_title}
-        </Text>
-        <Text>{moviesInfo.release_date}</Text>
-        <Text>{moviesInfo.overview}</Text>
-        <Text>{moviesInfo.vote_average}</Text>
-      </View>
+      <Text style={{fontFamily: 'SourceSansPro-Bold'}}>
+        {searchMoviesInfo.original_title}
+      </Text>
+      <Text>{searchMoviesInfo.release_date}</Text>
+      <Text>{searchMoviesInfo.overview}</Text>
+      <Text>{searchMoviesInfo.vote_average}</Text>
     </SafeAreaView>
   );
 };
 
-export default MoviesInfo;
+export default SearchMoviesInfo;

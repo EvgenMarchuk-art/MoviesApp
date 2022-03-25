@@ -19,17 +19,34 @@ const RenderItems = ({item, index}) => {
   };
 
   return (
-    <View key={item.index} style={{paddingLeft: 24, paddingRight: 24}}>
-      <TouchableOpacity onPress={openInfo}>
-        <Text style={{fontFamily: 'SourceSansPro-Bold'}}>{item.original_title}</Text>
-      </TouchableOpacity>
-      <SwitchButton enabled={isFavourite} movie={item} />
-      <TouchableOpacity onPress={openInfo}>
-        <Image
-          style={{height: 300, width: 300}}
-          source={{uri: `${IMG_URL}${item.poster_path}`}}
-        />
-      </TouchableOpacity>
+    <View key={item.index} style={{alignItems:'center', marginTop:24}}>
+      <View style={{flexDirection:'column',width:'auto',borderBottomWidth:1,borderColor:'#00d1ff'}}>
+        <View style={{alignItems:'center',justifyContent:'flex-start'}}>
+          <TouchableOpacity onPress={openInfo}>
+            <Text style={{padding:12, fontFamily: 'SourceSansPro-Bold', fontSize:20,color:'white'}}>{item.original_title}</Text>
+          </TouchableOpacity>
+        </View>
+        <View >
+          <TouchableOpacity onPress={openInfo}>
+            <Image
+              style={{height: 260, width: 380, resizeMode:'center'}}
+              source={{uri: `${IMG_URL}${item.poster_path}`}}
+            />
+          </TouchableOpacity>
+        </View>
+     <View style={{ flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+       <View>
+         <Text style={{padding:12, fontFamily: 'SourceSansPro-Bold', fontSize:20,color:'white'}}>Add to favourites </Text>
+       </View>
+       <View>
+         <SwitchButton style={{}} enabled={isFavourite} movie={item} />
+       </View>
+
+
+     </View>
+      </View>
+
+
     </View>
   );
 };

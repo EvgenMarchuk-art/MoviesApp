@@ -4,6 +4,7 @@ import {RootState} from '../../store';
 import {loadMovies} from '../../store/reducers/MoviesSlise';
 import {FlatList, View} from 'react-native';
 import RenderItems from '../renderItem/renderItems';
+import Search from "../Search/Search";
 
 const MoviesSection = () => {
   const screenState = useSelector(
@@ -25,9 +26,11 @@ const MoviesSection = () => {
 
   return (
     <View style={{flex: 1}}>
+
       <FlatList
         data={screenState}
         keyExtractor={keyExtractor}
+        showsVerticalScrollIndicator={false}
         renderItem={(props) => <RenderItems {...props} />}
         onEndReached={loadData}
         maxToRenderPerBatch={10}

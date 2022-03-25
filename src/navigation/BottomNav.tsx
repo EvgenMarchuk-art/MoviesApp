@@ -1,13 +1,13 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Movies from '../components/Movies';
 import {TouchableOpacity} from 'react-native';
 import MainStyle from './MainStyle';
-import Home from '../assets/svg/Home.svg';
-import HomeDefault from '../assets/svg/HomeDefault.svg';
-import Statistics from '../assets/svg/Statistics.svg';
-import StatisticsDefault from '../assets/svg/StatisticsDefault.svg';
-import FavoritesList from '../components/favorites/FavoritesList';
+import MovieIconDefault from '../assets/svg/MovieIconDefault.svg';
+import MovieIcon from '../assets/svg/MovieIcon.svg';
+import BlackStar from '../assets/svg/BlackStar.svg';
+import BlueStar from '../assets/svg/BlueStar.svg';
+import Favorites from '../Screen/Favorite/Favorites';
+import Movies from '../Screen/Movies/Movies';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +31,7 @@ const ButtonNavigation = () => {
             const {selected}: any = accessibilityState;
             return (
               <TouchableOpacity style={buttonStyle.home} onPress={onPress}>
-                {selected ? <Home /> : <HomeDefault />}
+                {selected ? <MovieIcon style={{width: 32, height: 24}} /> : <MovieIconDefault  style={{width: 38, height: 24}}/>}
               </TouchableOpacity>
             );
           },
@@ -43,13 +43,14 @@ const ButtonNavigation = () => {
             const {selected}: any = accessibilityState;
             return (
               <TouchableOpacity style={buttonStyle.home} onPress={onPress}>
-                {selected ? <Statistics /> : <StatisticsDefault />}
+                {selected ?<BlueStar style={{width: 24, height: 24}}/>  : <BlackStar style={{width: 24, height: 24}} />
+                }
               </TouchableOpacity>
             );
           },
         }}
         name="Favorites"
-        component={FavoritesList}
+        component={Favorites}
       />
     </Tab.Navigator>
   );

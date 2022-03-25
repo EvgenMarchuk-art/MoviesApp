@@ -6,8 +6,8 @@ import {
   removeFavourite,
 } from '../../store/reducers/FavoritesSlise';
 
-import GreyIcon from '../../assets/png/GreyIcon.png';
-import RedIcon from '../../assets/png/RedIcon.png';
+import Black2Star from '../../assets/svg/Black2Star.svg';
+import GoldStar from '../../assets/png/GoldStar.png';
 
 const SwitchButton = ({enabled = false, movie}: any) => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const SwitchButton = ({enabled = false, movie}: any) => {
   };
   return (
   <TouchableOpacity onPress={toggleSwitch}>
-  {!enabled ? <Image source={GreyIcon} /> : <Image source={RedIcon} />}
+  {!enabled ? <Black2Star style={{paddingRight:12}}/> : <Image source={GoldStar}  style={{paddingRight:12}}/>}
   </TouchableOpacity>
 
   );

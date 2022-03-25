@@ -18,7 +18,7 @@ const initialState: MoviesListState = {
   loading: true,
   error: '',
   page: 1,
-
+  id:0,
 };
 
 export const loadMovies = createAsyncThunk(
